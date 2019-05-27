@@ -21,8 +21,6 @@ function DBR {
 }
 
 ##paths:
-
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 ##Variables
 IFS=";"
@@ -33,10 +31,12 @@ read SRname
 echo "Drag and drop the CSV file"
 read CSVfile
 echo CSVfile: $CSVfile
+##parse output folder from scv file
+CSVDir=$( dirname "${CSVfile}")
+echo CSVDir: $CSVDir
 CSVfile=${CSVfile%?}
 
-
-SRfile="$DIR/$SRname""_SecurityRestrictions.mobileconfig"
+SRfile="$CSVDir/$SRname""_SecurityRestrictions.mobileconfig"
 
 echo $SRfile
 
@@ -50,7 +50,6 @@ UUID2=$(echo $UUID2Upper | tr '[:upper:]' '[:lower:]')
 UUID3=$(echo $UUID3Upper | tr '[:upper:]' '[:lower:]')
 
 echo $UUID1
-
 echo $UUID2
 
 ##put it in variable
