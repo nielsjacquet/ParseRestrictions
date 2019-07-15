@@ -42,6 +42,16 @@ PRfile="$DIR/$PRname""_PasscodeRestrictions.mobileconfig"
 
 echo $PRfile
 
+##Variables
+allowSimple="false"
+forcePIN="true"
+maxFailedAttempts="10"
+maxGracePeriod="5"
+maxInactivity="5"
+minLength="6"
+pinHistory="3"
+requireAlphanumeric="false"
+
 ##print the file
 echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" >> $PRfile
 echo -e "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">" >> $PRfile
@@ -54,14 +64,14 @@ echo -e "<key>PayloadIdentifier</key>\n<string>com.apple.mobiledevice.passwordpo
 echo -e "<key>PayloadType</key>\n<string>com.apple.mobiledevice.passwordpolicy</string>" >> $PRfile
 echo -e "<key>PayloadUUID</key>\n<string>$UUID1</string>" >> $PRfile
 echo -e "<key>PayloadVersion</key>\n<integer>1</integer>" >> $PRfile
-echo -e "<key>allowSimple</key>\n<false/>" >> $PRfile
-echo -e "<key>forcePIN</key>\n<true/>" >> $PRfile
-echo -e "<key>maxFailedAttempts</key>\n<integer>10</integer>" >> $PRfile
-echo -e "<key>maxGracePeriod</key>\n<integer>5</integer>" >> $PRfile
-echo -e "<key>maxInactivity</key>\n<integer>5</integer>" >> $PRfile
-echo -e "<key>minLength</key>\n<integer>6</integer>" >> $PRfile
-echo -e "<key>pinHistory</key>\n<real>3</real>" >> $PRfile
-echo -e "<key>requireAlphanumeric</key>\n<false/>" >> $PRfile
+echo -e "<key>allowSimple</key>\n<$allowSimple/>" >> $PRfile
+echo -e "<key>forcePIN</key>\n<$forcePIN/>" >> $PRfile
+echo -e "<key>maxFailedAttempts</key>\n<integer>$maxFailedAttempts</integer>" >> $PRfile
+echo -e "<key>maxGracePeriod</key>\n<integer>$maxGracePeriod</integer>" >> $PRfile
+echo -e "<key>maxInactivity</key>\n<integer>$maxInactivity</integer>" >> $PRfile
+echo -e "<key>minLength</key>\n<integer>$minLength</integer>" >> $PRfile
+echo -e "<key>pinHistory</key>\n<real>$pinHistory</real>" >> $PRfile
+echo -e "<key>requireAlphanumeric</key>\n<$requireAlphanumeric/>" >> $PRfile
 echo -e "</dict>\n</array>" >> $PRfile
 echo -e "<key>PayloadDisplayName</key>\n<string>$PRname"_PasscodeRestrictions"</string>" >> $PRfile
 echo -e "<key>PayloadIdentifier</key>\n<string>com.apple.mobiledevice.passwordpolicy.$UUID2</string>" >> $PRfile
