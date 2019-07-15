@@ -20,8 +20,12 @@ function DBR {
 }
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-echo "Type in the output filename"
-read PRname
+function StudyName {
+  echo "Give the StudyName"
+  read PRname
+}
+
+StudyName
 
 ##Genereate UUID's
 function generateUUID {
@@ -40,13 +44,14 @@ generateUUID
 # echo $UUID2
 # echo $UUID3
 
-echo $PRname
+#echo $PRname
 
 PRfile="$DIR/$PRname""_PasscodeRestrictions.mobileconfig"
 
-echo $PRfile
+#echo $PRfile
 
 ##Variables
+
 allowSimple="false"
 forcePIN="true"
 maxFailedAttempts="10"
@@ -55,10 +60,6 @@ maxInactivity="5"
 minLength="6"
 pinHistory="3"
 requireAlphanumeric="false"
-
-
-
-
 
 ##print the file
 function printFile {
