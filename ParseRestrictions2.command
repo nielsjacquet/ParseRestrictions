@@ -24,6 +24,14 @@ function DBR {
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 ##Variables
 IFS=";"
+allowSimple="false"
+forcePIN="true"
+maxFailedAttempts="10"
+maxGracePeriod="5"
+maxInactivity="5"
+minLength="6"
+pinHistory="3"
+requireAlphanumeric="false"
 
 ##ask user for filename
 echo "Give the StudyName"
@@ -37,6 +45,7 @@ echo CSVDir: $CSVDir
 CSVfile=${CSVfile%?}
 
 SRfile="$CSVDir/$SRname""_SecurityRestrictions.mobileconfig"
+PRfile="$CSVDir/$SRname""_PasscodeRestrictions.mobileconfig"
 
 echo $SRfile
 
@@ -119,6 +128,40 @@ function passwordPolicy {
   echo -e "</dict>" >> $SRfile
   echo -e "<dict>\n<key>PayloadDescription</key>\n<string>Configures passcode settings</string>\n<key>PayloadDisplayName</key>\n<string>Passcode</string>\n<key>PayloadIdentifier</key>\n<string>com.apple.applicationaccess.$SRname</string>\n<key>PayloadType</key>\n<string>com.apple.mobiledevice.passwordpolicy</string>\n<key>PayloadUUID</key>\n<string>$UUID2</string>\n<key>PayloadVersion</key>\n<integer>1</integer>" >> $SRfile
 }
+
+##print the file
+function printPassodeFile {
+  echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" >> $PRfile
+  echo -e "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">" >> $PRfile
+  echo -e "<plist version=\"1.0\">\n<dict>" >> $PRfile
+  echo -e "<key>HasRemovalPasscode</key>\n<false/>" >> $PRfile
+  echo -e "<key>PayloadContent</key>\n<array>\n<dict>" >> $PRfile
+  echo -e "<key>PayloadDescription</key>\n<string>Configures passcode settings</string>" >> $PRfile
+  echo -e "<key>PayloadDisplayName</key>\n<string>Passcode</string>" >> $PRfile
+  echo -e "<key>PayloadIdentifier</key>\n<string>com.apple.mobiledevice.passwordpolicy.$UUID4</string>" >> $PRfile
+  echo -e "<key>PayloadType</key>\n<string>com.apple.mobiledevice.passwordpolicy</string>" >> $PRfile
+  echo -e "<key>PayloadUUID</key>\n<string>$UUID4</string>" >> $PRfile
+  echo -e "<key>PayloadVersion</key>\n<integer>1</integer>" >> $PRfile
+  echo -e "<key>allowSimple</key>\n<$allowSimple/>" >> $PRfile
+  echo -e "<key>forcePIN</key>\n<$forcePIN/>" >> $PRfile
+  echo -e "<key>maxFailedAttempts</key>\n<integer>$maxFailedAttempts</integer>" >> $PRfile
+  echo -e "<key>maxGracePeriod</key>\n<integer>$maxGracePeriod</integer>" >> $PRfile
+  echo -e "<key>maxInactivity</key>\n<integer>$maxInactivity</integer>" >> $PRfile
+  echo -e "<key>minLength</key>\n<integer>$minLength</integer>" >> $PRfile
+  echo -e "<key>pinHistory</key>\n<real>$pinHistory</real>" >> $PRfile
+  echo -e "<key>requireAlphanumeric</key>\n<$requireAlphanumeric/>" >> $PRfile
+  echo -e "</dict>\n</array>" >> $PRfile
+  echo -e "<key>PayloadDisplayName</key>\n<string>$PRname"_PasscodeRestrictions"</string>" >> $PRfile
+  echo -e "<key>PayloadIdentifier</key>\n<string>com.apple.mobiledevice.passwordpolicy.$UUID5</string>" >> $PRfile
+  echo -e "<key>PayloadRemovalDisallowed</key>\n<true/>" >> $PRfile
+  echo -e "<key>PayloadType</key>\n<string>Configuration</string>" >> $PRfile
+  echo -e "<key>PayloadUUID</key>\n<string>$UUID6</string>" >> $PRfile
+  echo -e "<key>PayloadVersion</key>\n<integer>1</integer>" >> $PRfile
+  echo -e "</dict>\n</plist>" >> $PRfile
+}
+
+
 printHeader
 parse
 printFooter
+printPassodeFile
