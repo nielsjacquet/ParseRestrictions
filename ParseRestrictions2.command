@@ -26,7 +26,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 IFS=";"
 
 ##ask user for filename
-echo "Type in the output filename"
+echo "Give the StudyName"
 read SRname
 echo "Drag and drop the CSV file"
 read CSVfile
