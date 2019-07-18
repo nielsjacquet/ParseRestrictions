@@ -40,15 +40,7 @@ function generateUUID {
 
 generateUUID
 
-# echo $UUID1
-# echo $UUID2
-# echo $UUID3
-
-#echo $PRname
-
 PRfile="$DIR/$PRname""_PasscodeRestrictions.mobileconfig"
-
-#echo $PRfile
 
 ##Variables
 

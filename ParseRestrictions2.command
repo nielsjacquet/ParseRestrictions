@@ -44,13 +44,16 @@ echo $SRfile
 UUID1Upper=$(uuidgen)
 UUID2Upper=$(uuidgen)
 UUID3Upper=$(uuidgen)
+UUID4Upper=$(uuidgen)
+UUID5Upper=$(uuidgen)
+UUID6Upper=$(uuidgen)
 
 UUID1=$(echo $UUID1Upper | tr '[:upper:]' '[:lower:]')
 UUID2=$(echo $UUID2Upper | tr '[:upper:]' '[:lower:]')
 UUID3=$(echo $UUID3Upper | tr '[:upper:]' '[:lower:]')
-
-echo $UUID1
-echo $UUID2
+UUID4=$(echo $UUID4Upper | tr '[:upper:]' '[:lower:]')
+UUID5=$(echo $UUID5Upper | tr '[:upper:]' '[:lower:]')
+UUID6=$(echo $UUID6Upper | tr '[:upper:]' '[:lower:]')
 
 ##put it in variable
 function parse {
