@@ -33,16 +33,53 @@ minLength="6"
 pinHistory="3"
 requireAlphanumeric="false"
 
-##ask user for filename
-echo "Give the StudyName"
-read SRname
-echo "Drag and drop the CSV file"
-read CSVfile
-echo CSVfile: $CSVfile
+helpFunction()
+{
+  echo ""
+  echo "Usage: $0 -s studyname -c csvpath"
+  echo -e "\t-s studyname -- REQUIRED "
+  echo -e "\t-c csv path -- REQUIRED "
+  exitProcedure # Exit script after printing help
+}
+
+exitProcedure()
+{
+  exit 1
+}
+
+while getopts "s:c:?:h:" opt
+do
+   case "$opt" in
+      s ) SRname="$OPTARG" ;;               # StudyName argument
+      c ) CSVfile="$OPTARG" ;;              # CSV path argument
+      ? ) helpFunction ;;                   # Print helpFunction in case parameter is non-existent
+      h ) helpFunction ;;                   # Print helpFunction in case parameter is non-existent
+   esac
+done
+
+if [[ -z $SRname ]]
+  then
+    Printf "${RED}No -s STUDYNAME argument detected${NC}\n"
+    helpFunction
+fi
+
+
+if [[ -z $CSVfile ]]
+  then
+    printf "${RED}No -c CSVfile argument detected${NC}\n"
+    helpFunction
+fi
+
+# ##ask user for filename
+# echo "Give the StudyName"
+# read SRname
+# echo "Drag and drop the CSV file"
+# read CSVfile
+# echo CSVfile: $CSVfile
 ##parse output folder from scv file
 CSVDir=$( dirname "${CSVfile}")
 echo CSVDir: $CSVDir
-CSVfile=${CSVfile%?}
+# CSVfile=${CSVfile%?}
 
 SRfile="$CSVDir/$SRname""_SecurityRestrictions.mobileconfig"
 PRfile="$CSVDir/$SRname""_PasscodeRestrictions.mobileconfig"
